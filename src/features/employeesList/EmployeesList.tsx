@@ -5,12 +5,16 @@ import { EmployeeListItem } from './EmployeeListItem'
 
 interface Props {
     employees: Employee[]
+    showEmployeeDetails: (employeeId: number) => void
 }
 
-export const EmployeesList = ({ employees }: Props) => {
+export const EmployeesList = ({ employees, showEmployeeDetails }: Props) => {
     const renderedEmployees = employees.map(employee => (
         <li key={employee.id}>
-            <EmployeeListItem {...employee} />
+            <EmployeeListItem 
+                {...employee} 
+                showEmployeeDetails={showEmployeeDetails}
+            />
         </li>
     ))
 

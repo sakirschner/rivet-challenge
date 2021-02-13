@@ -7,10 +7,10 @@ import { EmployeesList } from './EmployeesList'
 import { fetchEmployees } from './employeesSlice'
 
 interface EmpListProps {
-
+    showEmployeeDetails: (employeeId: number) => void
 }
 
-export const EmployeesListPage = ({ }: EmpListProps) => {
+export const EmployeesListPage = ({ showEmployeeDetails }: EmpListProps) => {
     const dispatch = useDispatch()
 
     const {
@@ -40,7 +40,10 @@ export const EmployeesListPage = ({ }: EmpListProps) => {
     let renderedList = isLoading ? (
         <h3>Loading...</h3>
     ) : (
-        <EmployeesList employees={employees} />
+        <EmployeesList 
+            employees={employees}
+            showEmployeeDetails={showEmployeeDetails}
+        />
     )
 
     return (
