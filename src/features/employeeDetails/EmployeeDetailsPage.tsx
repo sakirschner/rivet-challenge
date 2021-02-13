@@ -9,11 +9,13 @@ import { EmployeeMeta } from './EmployeeMeta'
 interface EmpDetailsProps {
     employeeId: number
     showEmployeesList: () => void
+    showUpdateEmployee: (employeeId: number) => void
 }
 
 export const EmployeeDetailsPage = ({
     employeeId,
-    showEmployeesList
+    showEmployeesList,
+    showUpdateEmployee
 }: EmpDetailsProps) => {
     const dispatch = useDispatch()
 
@@ -38,6 +40,12 @@ export const EmployeeDetailsPage = ({
         </button>
     )
 
+    const updateEmployeeButton = (
+        <button onClick={() => showUpdateEmployee(employeeId)}>
+            Edit Employee
+        </button>
+    )
+
     if (employee === null) {
         content = (
             <div>
@@ -49,7 +57,10 @@ export const EmployeeDetailsPage = ({
         content = (
             <div>
                 {backToEmployeesListButton}
-                <EmployeeMeta employee={employee} />
+                {updateEmployeeButton}
+                <EmployeeMeta 
+                    employee={employee} 
+                />
             </div>
         )
     }

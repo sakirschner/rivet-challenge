@@ -6,20 +6,26 @@ import { RootState } from './rootReducer'
 import { EmployeesListPage } from '../features/employeesList/EmployeesListPage'
 import { EmployeeDetailsPage } from '../features/employeeDetails/EmployeeDetailsPage'
 import { AddEmployeePage } from '../features/addEmployee/AddEmployeePage'
+
 import { setCurrentDisplayType } from '../features/employeesDisplay/employeesDisplaySplice'
 
 import './App.css'
+import { UpdateEmployeePage } from '../features/updateEmployee/UpdateEmployeePage'
 
 type CurrentDisplay = 
   | {
     type: 'employees'
     }
   | {
-    type: 'comments'
+    type: 'employeeDetails'
     employeeId: number
   }
   | {
     type: 'addEmployee'
+  }
+  | {
+    type: 'updateEmployee'
+    employeeId: number
   }
 
 const App: React.FC = () => {
@@ -35,6 +41,10 @@ const App: React.FC = () => {
 
   const showEmployeeDetails = (employeeId: number) => {
     dispatch(setCurrentDisplayType( {displayType: 'details', employeeId }))
+  }
+
+  const showUpdateEmployee = (employeeId: number) => {
+    dispatch(setCurrentDisplayType( {displayType: 'updateEmployee', employeeId }))
   }
 
   const showAddEmployee = () => {
@@ -58,13 +68,25 @@ const App: React.FC = () => {
     )
   } else if (employeeId !== null) {
     const key = `${employeeId}`
+    if (displayType === 'details') {
     content = (
       <EmployeeDetailsPage
         key={key}
         employeeId={employeeId}
         showEmployeesList={showEmployeesList}
+        showUpdateEmployee={showUpdateEmployee}
       />
     )
+    } else if (displayType === 'updateEmployee') {
+      content = (
+        <div>
+            <UpdateEmployeePage
+                key={key}
+                employeeId={employeeId}
+            />
+        </div>
+    )
+    }
   }
   
   return <div className="App">{content}</div>
