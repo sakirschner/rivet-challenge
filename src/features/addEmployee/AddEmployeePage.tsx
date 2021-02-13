@@ -16,18 +16,15 @@ export const AddEmployeePage = ({
     const dispatch = useDispatch()
 
     const { first_name, last_name, phone, email, address, city, 
-            st, zip } = useSelector(
-                (state: RootState) => state.employeeToAdd
-    )
+            st, zip, isLoading, error } = useSelector(
+                (state: RootState) => state.employeeToAdd)
 
     const setEmployee = (first_name: string, last_name: string,
                          phone: string, email: string, address: string,
                          city: string, st: string, zip: string) => {
-        dispatch(setEmployeeToAdd({ first_name, last_name, phone, email, 
+    dispatch(setEmployeeToAdd({ first_name, last_name, phone, email, 
                                     address, city, st, zip }))
     }
-
-    let content
 
     const backToEmployeesListButton = (
         <button onClick={showEmployeesList}>
@@ -35,7 +32,32 @@ export const AddEmployeePage = ({
         </button>
     )
 
-    content = (
+    if (error) {
+        return (
+            <div>
+                <div>
+                    {backToEmployeesListButton}
+                    <AddEmployeeForm
+                    first_name={first_name}
+                    last_name={last_name}
+                    phone={phone}
+                    email={email}
+                    address={address}
+                    city={city}
+                    st={st}
+                    zip={zip}
+                    setEmployee={setEmployee}  
+                    />
+                </div>
+                <h1>Something went wrong...</h1>
+                <div>{error.toString()}</div>
+            </div>
+        )
+    }
+
+    let renderedPage = isLoading ? (
+        <h3>Loading...</h3>
+    ) : (
         <div>
             {backToEmployeesListButton}
             <AddEmployeeForm
@@ -52,5 +74,5 @@ export const AddEmployeePage = ({
         </div>
     )
 
-    return <div>{content}</div>
+    return <div>{renderedPage}</div>
 } 

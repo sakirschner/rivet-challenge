@@ -1,4 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createEmployee } from '../../api/employeeAPI'
+
+import { AppThunk } from '../../app/store'
 
 interface employeeToAdd {
     first_name: string
@@ -8,10 +11,15 @@ interface employeeToAdd {
     address: string
     city: string
     st: string
-    zip: string
+    zip: string,
 }
 
-type employeeToAddState = { } & employeeToAdd
+interface extras {
+    isLoading: boolean,
+    error: string | null
+}
+
+type employeeToAddState = { } & employeeToAdd & extras
 
 let empleeToAddInitialState: employeeToAddState = {
     first_name: '',
@@ -22,12 +30,29 @@ let empleeToAddInitialState: employeeToAddState = {
     city: '',
     st: '',
     zip: '',
+    isLoading: false,
+    error: null
+}
+
+function startLoading(state: employeeToAddState) {
+    state.isLoading = true
+}
+  
+function loadingFailed(state: employeeToAddState, action: PayloadAction<string>) {
+    state.isLoading = false
+    state.error = action.payload
+}
+
+function loadingSuccess(state: employeeToAddState) {
+    state.isLoading = false
+    state.error = null
 }
 
 const employeeToAdd = createSlice({
     name: 'employeeToAdd',
     initialState: empleeToAddInitialState,
     reducers: {
+        postEmployeeStart: startLoading,
         setEmployeeToAdd(state, action: PayloadAction<employeeToAdd>) {
             const {first_name, last_name, phone, 
                    email, address, city, st, zip} = action.payload
@@ -39,12 +64,40 @@ const employeeToAdd = createSlice({
             state.city = city
             state.st = st
             state.zip = zip
-        }
+        },
+        postEmployeeSuccess: loadingSuccess,
+        postEmployeeFailure: loadingFailed
     }
 })
 
 export const {
-    setEmployeeToAdd
+    postEmployeeStart,
+    setEmployeeToAdd,
+    postEmployeeSuccess,
+    postEmployeeFailure
 } = employeeToAdd.actions
 
 export default employeeToAdd.reducer
+
+export const postEmployee = (first_name: string, last_name: string, phone: string, 
+                              email: string, address: string, city: string, 
+                              st: string, zip: string): AppThunk => async dispatch => {
+    const payload = {
+        'first_name': first_name, 
+        'last_name' : last_name, 
+        'phone': phone, 
+        'email': email, 
+        'address': address, 
+        'city': city, 
+        'state': st, 
+        'zip' : zip
+    }
+    
+    try {
+        dispatch(postEmployeeStart())
+        await createEmployee(payload)
+        dispatch(postEmployeeSuccess())
+    } catch (err) {
+        dispatch(postEmployeeFailure(err.message))
+    }
+} 

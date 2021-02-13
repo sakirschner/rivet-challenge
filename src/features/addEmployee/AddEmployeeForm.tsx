@@ -1,5 +1,9 @@
 import React, { useState, ChangeEvent } from 'react'
 
+import { useDispatch } from 'react-redux'
+
+import { postEmployee } from './addEmployeeSlice'
+
 
 interface Props {
     first_name: string
@@ -29,6 +33,8 @@ export const AddEmployeeForm = ({ first_name, last_name, phone,
     const [curCity, setCity] = useState(city)
     const [curSt, setSt] = useState(st)
     const [curZip, setZip] = useState(zip)
+
+    const dispatch = useDispatch()
 
     const onFirstNameChanged: ChangeHandler = e => {
         setFirstName(e.target.value)
@@ -63,8 +69,8 @@ export const AddEmployeeForm = ({ first_name, last_name, phone,
     }
 
     const onSaveClicked = () => {
-        setEmployee(curFirstName, curLastName, curPhone, curEmail,
-                    curAddress, curCity, curSt, curZip)
+        dispatch(postEmployee(curFirstName, curLastName, curPhone, curEmail,
+            curAddress, curCity, curSt, curZip))
     }
 
     return (
