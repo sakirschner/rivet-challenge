@@ -8,9 +8,13 @@ import { fetchEmployees } from './employeesSlice'
 
 interface EmpListProps {
     showEmployeeDetails: (employeeId: number) => void
+    showAddEmployee: () => void
 }
 
-export const EmployeesListPage = ({ showEmployeeDetails }: EmpListProps) => {
+export const EmployeesListPage = ({ 
+    showEmployeeDetails,
+    showAddEmployee
+ }: EmpListProps) => {
     const dispatch = useDispatch()
 
     const {
@@ -43,6 +47,7 @@ export const EmployeesListPage = ({ showEmployeeDetails }: EmpListProps) => {
         <EmployeesList 
             employees={employees}
             showEmployeeDetails={showEmployeeDetails}
+            showAddEmployee={showAddEmployee}
         />
     )
 

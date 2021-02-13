@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch, shallowEqual } from 'react-redux'
-import ReactMarkdown from 'react-markdown'
-import classnames from 'classnames'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { RootState } from '../../app/rootReducer'
 import { fetchEmployee } from '../../features/employeesList/employeesSlice'

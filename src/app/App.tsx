@@ -4,12 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from './rootReducer'
 
 import { EmployeesListPage } from '../features/employeesList/EmployeesListPage'
-import { EmployeesList } from '../features/employeesList/EmployeesList'
-
+import { EmployeeDetailsPage } from '../features/employeeDetails/EmployeeDetailsPage'
+import { AddEmployeePage } from '../features/addEmployee/addEmployeePage'
 import { setCurrentDisplayType } from '../features/employeesDisplay/employeesDisplaySplice'
 
 import './App.css'
-import { EmployeeDetailsPage } from '../features/employeeDetails/EmployeeDetailsPage'
 
 type CurrentDisplay = 
   | {
@@ -18,6 +17,9 @@ type CurrentDisplay =
   | {
     type: 'comments'
     employeeId: number
+  }
+  | {
+    type: 'addEmployee'
   }
 
 const App: React.FC = () => {
@@ -35,15 +37,24 @@ const App: React.FC = () => {
     dispatch(setCurrentDisplayType( {displayType: 'details', employeeId }))
   }
 
+  const showAddEmployee = () => {
+    dispatch(setCurrentDisplayType({ displayType: 'addEmployee' }))
+  }
+
   let content
 
   if (displayType === 'employees') {
     content = (
-      <>
-        <EmployeesListPage 
-          showEmployeeDetails={showEmployeeDetails}
-        />
-      </>
+      <EmployeesListPage 
+        showEmployeeDetails={showEmployeeDetails}
+        showAddEmployee={showAddEmployee}
+      />
+    )
+  } else if (displayType === 'addEmployee'){
+    content = (
+      <AddEmployeePage
+        showEmployeesList={showEmployeesList}
+      />
     )
   } else if (employeeId !== null) {
     const key = `${employeeId}`

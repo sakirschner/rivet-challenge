@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface CurrentDisplay {
-    displayType: 'employees' | 'details'
+    displayType: 'employees' | 'details' | 'addEmployee'
     employeeId: number | null 
 }
 
 interface CurrentDisplayPayload {
-    displayType: 'employees' | 'details'
+    displayType: 'employees' | 'details' | 'addEmployee'
     employeeId?: number
 }
 
