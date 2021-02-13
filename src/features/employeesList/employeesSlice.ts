@@ -7,14 +7,14 @@ interface EmployeesState {
     employeesById: Record<number, Employee>
     currentEmployees: number[]
     isLoading: boolean
-    error: string | null  
+    error: string | null
 }
 
 const employeesInitialState: EmployeesState = {
     employeesById: {},
     currentEmployees: [],
     isLoading: false,
-    error: null
+    error: null,
 }
 
 function startLoading(state: EmployeesState) {

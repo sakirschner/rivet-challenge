@@ -23,6 +23,7 @@ export interface EmployeesResult {
 const apiClient = axios.create({
     baseURL: 'https://codechallenge.rivet.work/api/v1',
     headers: {
+      'Content-Type': 'application/json',  
       'token': process.env.REACT_APP_API_TOKEN
     }
 })
@@ -45,10 +46,21 @@ export async function getEmployee(id: number) {
     const url = '/profile'
 
     try {
-        const { data } = await axios.get<Employee>(`${url}/${id}`)
+        const { data } = await apiClient.get<Employee>(`${url}/${id}`)
 
         return data
     } catch (err) {
         throw err
     }  
+}
+
+export async function createEmployee(payload: Employee) {
+    const url = '/'
+
+    try {
+        await apiClient.post(`${url}`)
+    } catch (err) {
+        throw err
+    }
+
 }
