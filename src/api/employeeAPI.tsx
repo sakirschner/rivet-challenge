@@ -55,7 +55,6 @@ export async function getEmployee(id: number) {
 }
 
 export async function createEmployee(payload: any) {
-    console.log(payload)
     const url = '/profile'
 
     try {
@@ -68,4 +67,18 @@ export async function createEmployee(payload: any) {
         throw err
     }
 
+}
+
+export async function updateEmployee(id: number, payload: any) {
+    const url = `/profile/${id}`
+
+    try {
+        await apiClient.put(`${url}`, payload).then(
+            response => { 
+                return response
+            }
+        )
+    } catch (err) {
+        throw err
+    }
 }

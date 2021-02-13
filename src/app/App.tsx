@@ -83,6 +83,7 @@ const App: React.FC = () => {
             <UpdateEmployeePage
                 key={key}
                 employeeId={employeeId}
+                showEmployeeDetails={showEmployeeDetails}
             />
         </div>
     )
