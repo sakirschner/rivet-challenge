@@ -41,7 +41,9 @@ export const UpdateEmployeePage = ({
 	)
 
 	const error = useSelector((state: RootState) => state.empolyeeToPut.error)
-	const isLoading = useSelector((state: RootState) => state.empolyeeToPut.isLoading)
+	const isLoading = useSelector(
+		(state: RootState) => state.empolyeeToPut.isLoading
+	)
 
 	useEffect(() => {
 		if (!employee) {
@@ -67,15 +69,12 @@ export const UpdateEmployeePage = ({
 			</div>
 		)
 	}
-	
+
 	let renderedPage = isLoading ? (
 		<h1 className="saving">Saving...</h1>
 	) : (
 		<div className="formContainer">
-			<PutModal 
-				showEmployeeDetails={showEmployeeDetails}
-				employee={employee} 
-			/>
+			<PutModal showEmployeeDetails={showEmployeeDetails} employee={employee} />
 			<UpdateEmployeeForm
 				employee={employee}
 				showEmployeeDetails={showEmployeeDetails}

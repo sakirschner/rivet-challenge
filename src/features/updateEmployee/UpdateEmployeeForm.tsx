@@ -32,7 +32,7 @@ type ChangeHandler = (e: InputEvent) => void
 
 export const UpdateEmployeeForm = ({
 	employee,
-	showEmployeeDetails,
+	showEmployeeDetails
 }: Props) => {
 	const [curFirstName, setFirstName] = useState(employee.first_name)
 	const [curLastName, setLastName] = useState(employee.last_name)
@@ -185,7 +185,7 @@ export const UpdateEmployeeForm = ({
 						onClick={() => showEmployeeDetails(employee.id)}>
 						Cancel
 					</Button>
-                    <Button
+					<Button
 						variant="contained"
 						color="primary"
 						type="button"

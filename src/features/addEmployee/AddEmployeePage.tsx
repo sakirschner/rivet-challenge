@@ -70,21 +70,21 @@ export const AddEmployeePage = ({ showEmployeesList }: AddEmpProps) => {
 	if (error) {
 		return (
 			<div className={classes.root}>
-					<Alert severity="error">
-						Something went wrong - {error.toString()}
-					</Alert>
-					<AddEmployeeForm
-						showEmployeesList={showEmployeesList}
-						first_name={first_name}
-						last_name={last_name}
-						phone={phone}
-						email={email}
-						address={address}
-						city={city}
-						st={st}
-						zip={zip}
-						setEmployee={setEmployee}
-					/>
+				<Alert severity="error">
+					Something went wrong - {error.toString()}
+				</Alert>
+				<AddEmployeeForm
+					showEmployeesList={showEmployeesList}
+					first_name={first_name}
+					last_name={last_name}
+					phone={phone}
+					email={email}
+					address={address}
+					city={city}
+					st={st}
+					zip={zip}
+					setEmployee={setEmployee}
+				/>
 			</div>
 		)
 	}

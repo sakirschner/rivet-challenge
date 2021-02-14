@@ -42,7 +42,7 @@ export const EmployeesListPage = ({
 	}
 
 	let renderedList = isLoading ? (
-		<h1 className='loading'>Loading...</h1>
+		<h1 className="loading">Loading...</h1>
 	) : (
 		<EmployeesList
 			employees={employees}
@@ -51,5 +51,5 @@ export const EmployeesListPage = ({
 		/>
 	)
 
-	return <div className='list'>{renderedList}</div>
+	return <div className="list">{renderedList}</div>
 }

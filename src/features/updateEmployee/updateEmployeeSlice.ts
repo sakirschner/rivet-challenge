@@ -52,7 +52,7 @@ function closeModal(state: employeeToPutState) {
 }
 
 function formSubmitted(state: employeeToPutState) {
-    state.submitted = true
+	state.submitted = true
 }
 
 function startLoading(state: employeeToPutState) {

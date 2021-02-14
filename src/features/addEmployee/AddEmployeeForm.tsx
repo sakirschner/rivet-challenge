@@ -88,7 +88,9 @@ export const AddEmployeeForm = ({
 
 	const error = useSelector((state: RootState) => state.employeeToAdd.error)
 
-	const submitted = useSelector((state: RootState) => state.employeeToAdd.submitted)
+	const submitted = useSelector(
+		(state: RootState) => state.employeeToAdd.submitted
+	)
 
 	const onFirstNameChanged: ChangeHandler = (e) => {
 		setFirstName(e.target.value)
