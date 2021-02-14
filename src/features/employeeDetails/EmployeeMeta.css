@@ -1,0 +1,21 @@
+.info > p, h3 {
+    display: inline !important;
+}
+
+.info > h3 {
+    margin-left: 5px;
+}
+
+.infoContainer {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 50px;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.button {
+    margin: 0 50px 0 0px !important;
+}

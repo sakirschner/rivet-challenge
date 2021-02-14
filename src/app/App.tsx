@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
+
 import { useSelector, useDispatch } from 'react-redux'
 
 import { RootState } from './rootReducer'
@@ -6,13 +7,13 @@ import { RootState } from './rootReducer'
 import { EmployeesListPage } from '../features/employeesList/EmployeesListPage'
 import { EmployeeDetailsPage } from '../features/employeeDetails/EmployeeDetailsPage'
 import { AddEmployeePage } from '../features/addEmployee/AddEmployeePage'
+import { AddEmployeeButton } from '../components/AddEmployeeButton'
 
 import { setCurrentDisplayType } from '../features/employeesDisplay/employeesDisplaySplice'
 import { UpdateEmployeePage } from '../features/updateEmployee/UpdateEmployeePage'
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -108,6 +109,12 @@ const App: React.FC<Props> = (props: Props) => {
     dispatch(setCurrentDisplayType({ displayType: 'addEmployee' }))
   }
 
+  const onLogoClicked = (e: MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    showEmployeesList()
+  }
+
   let content
 
   if (displayType === 'employees') {
@@ -152,7 +159,14 @@ const App: React.FC<Props> = (props: Props) => {
       <CssBaseline />
         <AppBar className="appBar">
           <Toolbar>
-            <img src={logo} className='logo'/>
+            <a href='#list' onClick={onLogoClicked}>
+              <img src={logo} className='logo'/>
+            </a>
+            <div className="addButton">
+            <AddEmployeeButton 
+                showAddEmployee={showAddEmployee}
+                />
+            </div> 
           </Toolbar>
         </AppBar>
         <Container>

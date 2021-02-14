@@ -31,35 +31,30 @@ export const EmployeeDetailsPage = ({
         //in case employee is alreay loaded
         window.scrollTo({ top: 0 })
     }, [employeeId, employee, dispatch])
-
-    let content
-
+    
     const backToEmployeesListButton = (
         <button onClick={showEmployeesList}>
             Back To Employees
         </button>
     )
 
-    const updateEmployeeButton = (
-        <button onClick={() => showUpdateEmployee(employeeId)}>
-            Edit Employee
-        </button>
-    )
+    let content
 
     if (employee === null) {
         content = (
             <div>
-                {backToEmployeesListButton}
                 <p>Something went wrong loading Employee ID {employeeId}...</p>
+                {backToEmployeesListButton}
             </div>
         )
     } else {
         content = (
             <div>
-                {backToEmployeesListButton}
-                {updateEmployeeButton}
                 <EmployeeMeta 
                     employee={employee} 
+                    showEmployeesList={showEmployeesList}
+                    showUpdateEmployee={showUpdateEmployee}
+
                 />
             </div>
         )

@@ -32,9 +32,10 @@ export const UpdateEmployeePage = ({
 
     return (
         <div>
-            <button onClick={() => (showEmployeeDetails(employeeId))}>Cancel</button>
             <UpdateEmployeeForm 
                 employee={employee}
+                showEmployeeDetails={showEmployeeDetails}
             />
-        </div>)
+        </div>
+    )
 }

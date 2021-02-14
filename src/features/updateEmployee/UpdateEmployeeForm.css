@@ -1,0 +1,10 @@
+form {
+    margin-top: 50px !important;
+    width: 100%;
+    margin: auto;
+}
+
+.field {
+    display: block !important;
+    margin-top: 20px !important;
+}

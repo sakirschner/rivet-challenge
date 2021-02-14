@@ -5,15 +5,34 @@ import { Employee } from '../../api/employeeAPI'
 
 import { putEmployee } from './updateEmployeeSlice'
 
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+import './UpdateEmployeeForm.css'
 
 interface Props {
    employee: Employee
+   showEmployeeDetails: (emploeeId: number) => void
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '100%',
+      },
+    },
+  }),
+);
 
 type InputEvent = ChangeEvent<HTMLInputElement>
 type ChangeHandler = (e: InputEvent) => void
 
-export const UpdateEmployeeForm = ({ employee} : Props) => {
+export const UpdateEmployeeForm = ({ 
+    employee,
+    showEmployeeDetails
+} : Props) => {
     const [curFirstName, setFirstName] = useState(employee.first_name)
     const [curLastName, setLastName] = useState(employee.last_name)
     const [curPhone, setPhone] = useState(employee.phone)
@@ -23,6 +42,8 @@ export const UpdateEmployeeForm = ({ employee} : Props) => {
     const [curSt, setSt] = useState(employee.state)
     const [curZip, setZip] = useState(employee.zip)
     const [curNotes, setNotes] = useState(employee.notes)
+
+    const classes = useStyles();
 
     const dispatch = useDispatch()
 
@@ -68,46 +89,22 @@ export const UpdateEmployeeForm = ({ employee} : Props) => {
     }
 
     return (
-        <form>
-            <div>
-                <label htmlFor="first_name">
-                    First Name:
-                </label>
-                <input name="first_name" value={curFirstName} onChange={onFirstNameChanged} />
-                <label htmlFor="last_name">
-                    Last Name:
-                </label>
-                <input name="last_name" value={curLastName} onChange={onLastNameChanged} />
-                <label htmlFor="phone">
-                    Phone:
-                </label>
-                <input name="phone" value={curPhone} onChange={onPhoneChanged} />
-                <label htmlFor="email">
-                    Email:
-                </label>
-                <input name="email" value={curEmail} onChange={onEmailChanged} />
-                <label htmlFor="address">
-                    Address:
-                </label>
-                <input name="address" value={curAddress} onChange={onAddressChanged} />
-                <label htmlFor="city">
-                    City:
-                </label>
-                <input name="city" value={curCity} onChange={onCityChanged} />
-                <label htmlFor="st">
-                    State:
-                </label>
-                <input name="st" value={curSt} onChange={onStChanged} />
-                <label htmlFor="zip">
-                    Zip:
-                </label>
-                <input name="zip" value={curZip} onChange={onZipChanged} />
-                <label htmlFor="notes">
-                    Notes:
-                </label>
-                <input name="notes" value={curNotes} onChange={onNotesChanged} />
+        <form className={classes.root} autoComplete='off'>
+            <div className='form'>
+                <TextField variant="outlined" className='field' label='First Name' name="first_name" value={curFirstName} onChange={onFirstNameChanged} />
+                <TextField variant="outlined" className='field' label='Last Name' name="last_name" value={curLastName} onChange={onLastNameChanged} />
+                <TextField variant="outlined" className='field' label='Phone' name="phone" value={curPhone} onChange={onPhoneChanged} />
+                <TextField variant="outlined" className='field' label='Email' name="email" value={curEmail} onChange={onEmailChanged} />
+                <TextField variant="outlined" className='field' label='Address' name="address" value={curAddress} onChange={onAddressChanged} />
+                <TextField variant="outlined" className='field' label='City' name="city" value={curCity} onChange={onCityChanged} />
+                <TextField variant="outlined" className='field' label='State' name="st" value={curSt} onChange={onStChanged} />
+                <TextField variant="outlined" className='field' label='Zip' name="zip" value={curZip} onChange={onZipChanged} />
+                <TextField variant="outlined" className='field' multiline label='Notes' name="notes" value={curNotes} onChange={onNotesChanged} />
                 <button type="button" onClick={onSaveClicked}>
-                    Add Employee
+                    Save
+                </button>
+                <button onClick={() => (showEmployeeDetails(employee.id))}>
+                    Cancel
                 </button>
             </div>
         </form>

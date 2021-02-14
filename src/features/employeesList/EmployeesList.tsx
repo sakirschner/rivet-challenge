@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Employee } from '../../api/employeeAPI'
-import { AddEmployeeButton } from '../../components/AddEmployeeButton'
 
 import { EmployeeListItem } from './EmployeeListItem'
 
@@ -50,12 +49,9 @@ export const EmployeesList = ({
     ))
 
     content = (
-        <div>
-            <AddEmployeeButton 
-                showAddEmployee={showAddEmployee} 
-            />
+        <>
             <ul>{renderedEmployees}</ul>
-        </div>
+        </>
     )
 
     return <List className={classes.root}>{content}</List>

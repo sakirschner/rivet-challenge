@@ -23,7 +23,7 @@ export const AddEmployeeButton = ({
     const classes = useStyles();
 
     const addEmployeeButton = (
-        <Button variant="contained" color="primary" onClick={showAddEmployee}>
+        <Button variant="contained" color="secondary" onClick={showAddEmployee}>
             Add Employee
         </Button>
     )
