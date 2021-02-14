@@ -6,36 +6,38 @@ import { fetchEmployee } from '../../features/employeesList/employeesSlice'
 
 import { UpdateEmployeeForm } from './UpdateEmployeeForm'
 
+import './UpdateEmployeePage.css'
+
 interface UpEmpProps {
-    employeeId: number
-    showEmployeeDetails: (emploeeId: number) => void
+	employeeId: number
+	showEmployeeDetails: (emploeeId: number) => void
 }
 
-export const UpdateEmployeePage = ({ 
-    employeeId,
-    showEmployeeDetails
+export const UpdateEmployeePage = ({
+	employeeId,
+	showEmployeeDetails
 }: UpEmpProps) => {
-    const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-    const employee = useSelector(
-        (state: RootState) => state.employees.employeesById[employeeId]
-    )
+	const employee = useSelector(
+		(state: RootState) => state.employees.employeesById[employeeId]
+	)
 
-    useEffect(() => {
-        if (!employee) {
-            dispatch(fetchEmployee(employeeId))
-        }
+	useEffect(() => {
+		if (!employee) {
+			dispatch(fetchEmployee(employeeId))
+		}
 
-        //in case employee is alreay loaded
-        window.scrollTo({ top: 0 })
-    }, [employeeId, employee, dispatch])
+		//in case employee is alreay loaded
+		window.scrollTo({ top: 0 })
+	}, [employeeId, employee, dispatch])
 
-    return (
-        <div>
-            <UpdateEmployeeForm 
-                employee={employee}
-                showEmployeeDetails={showEmployeeDetails}
-            />
-        </div>
-    )
+	return (
+		<div className='formContainer'>
+			<UpdateEmployeeForm
+				employee={employee}
+				showEmployeeDetails={showEmployeeDetails}
+			/>
+		</div>
+	)
 }

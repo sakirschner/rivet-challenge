@@ -22,3 +22,8 @@ body {
   width: 100%;
   justify-content: flex-end;
 }
+
+.updatePageContainer {
+  display: flex;
+  width: 400px;
+}

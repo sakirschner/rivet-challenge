@@ -4,56 +4,55 @@ import { Employee } from '../../api/employeeAPI'
 
 import { EmployeeListItem } from './EmployeeListItem'
 
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import Divider from '@material-ui/core/Divider'
 
 interface Props {
-    employees: Employee[]
-    showEmployeeDetails: (employeeId: number) => void
-    showAddEmployee: () => void
+	employees: Employee[]
+	showEmployeeDetails: (employeeId: number) => void
+	showAddEmployee: () => void
 }
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-      backgroundColor: theme.palette.background.paper,
-    },
-    inline: {
-      display: 'inline',
-    },
-  }),
-);
+	createStyles({
+		root: {
+			width: '100%',
+			backgroundColor: theme.palette.background.paper
+		},
+		inline: {
+			display: 'inline'
+		}
+	})
+)
 
-export const EmployeesList = ({ 
-    employees, 
-    showEmployeeDetails,
-    showAddEmployee
- }: Props) => {
-    const classes = useStyles()
+export const EmployeesList = ({
+	employees,
+	showEmployeeDetails,
+	showAddEmployee
+}: Props) => {
+	const classes = useStyles()
 
-    let content
-    
-    const renderedEmployees = employees.map(employee => (
-        <>
-            <ListItem alignItems="flex-start" key={employee.id}>
-                <EmployeeListItem 
-                    {...employee} 
-                    showEmployeeDetails={showEmployeeDetails}
-                />
-            </ListItem>
-            <Divider variant="inset" />
-        </>
-    ))
+	let content
 
-    content = (
-        <>
-            <ul>{renderedEmployees}</ul>
-        </>
-    )
+	const renderedEmployees = employees.map((employee) => (
+		<>
+			<ListItem alignItems="flex-start" key={employee.id}>
+				<EmployeeListItem
+					{...employee}
+					showEmployeeDetails={showEmployeeDetails}
+				/>
+			</ListItem>
+			<Divider variant="inset" />
+		</>
+	))
 
-    return <List className={classes.root}>{content}</List>
+	content = (
+		<>
+			<ul>{renderedEmployees}</ul>
+		</>
+	)
+
+	return <List className={classes.root}>{content}</List>
 }
-
