@@ -8,9 +8,11 @@ import { EmployeesListPage } from '../features/employeesList/EmployeesListPage'
 import { EmployeeDetailsPage } from '../features/employeeDetails/EmployeeDetailsPage'
 import { AddEmployeePage } from '../features/addEmployee/AddEmployeePage'
 import { AddEmployeeButton } from '../components/AddEmployeeButton'
+import { SaveModal } from '../components/SaveModal'
 
 import { setCurrentDisplayType } from '../features/employeesDisplay/employeesDisplaySplice'
 import { UpdateEmployeePage } from '../features/updateEmployee/UpdateEmployeePage'
+import { resetEmployeeToAddState } from '../features/addEmployee/addEmployeeSlice'
 
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -94,6 +96,7 @@ const App: React.FC<Props> = (props: Props) => {
 
 	const showEmployeesList = () => {
 		dispatch(setCurrentDisplayType({ displayType: 'employees' }))
+		dispatch(resetEmployeeToAddState())
 	}
 
 	const showEmployeeDetails = (employeeId: number) => {
@@ -166,7 +169,10 @@ const App: React.FC<Props> = (props: Props) => {
 			</AppBar>
 			<Container>
 				<Toolbar id="back-to-top-anchor" />
-				<Box className='formContainer'>{content}</Box>
+				<Box className='formContainer'>
+					<SaveModal />
+					{content}
+				</Box>
 			</Container>
 			<ScrollTop {...props}>
 				<Fab color="secondary" size="small" aria-label="scroll back to top">

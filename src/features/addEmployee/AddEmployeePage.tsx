@@ -5,11 +5,29 @@ import { AddEmployeeForm } from './AddEmployeeForm'
 import { setEmployeeToAdd } from './addEmployeeSlice'
 import { RootState } from '../../app/rootReducer'
 
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import Alert from '@material-ui/lab/Alert'
+
+import './AddEmployeePage.css'
+
 interface AddEmpProps {
 	showEmployeesList: () => void
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		root: {
+			width: '100%',
+			'& > * + *': {
+				marginTop: theme.spacing(2)
+			}
+		}
+	})
+)
+
 export const AddEmployeePage = ({ showEmployeesList }: AddEmpProps) => {
+	const classes = useStyles()
+
 	const dispatch = useDispatch()
 
 	const {
@@ -51,8 +69,10 @@ export const AddEmployeePage = ({ showEmployeesList }: AddEmpProps) => {
 
 	if (error) {
 		return (
-			<div>
-				<div>
+			<div className={classes.root}>
+					<Alert severity="error">
+						Something went wrong - {error.toString()}
+					</Alert>
 					<AddEmployeeForm
 						showEmployeesList={showEmployeesList}
 						first_name={first_name}
@@ -65,15 +85,12 @@ export const AddEmployeePage = ({ showEmployeesList }: AddEmpProps) => {
 						zip={zip}
 						setEmployee={setEmployee}
 					/>
-				</div>
-				<h1>Something went wrong...</h1>
-				<div>{error.toString()}</div>
 			</div>
 		)
 	}
 
 	let renderedPage = isLoading ? (
-		<h3>Loading...</h3>
+		<h1 className="saving">Saving...</h1>
 	) : (
 		<div>
 			<AddEmployeeForm

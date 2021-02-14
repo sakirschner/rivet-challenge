@@ -7,8 +7,7 @@ import employeeToAddReducer from '../features/addEmployee/addEmployeeSlice'
 const rootReducer = combineReducers({
     employees: employeesReducer,
     employeesDisplay: employeesDisplayReducer,
-    employeeToAdd: employeeToAddReducer
-
+    employeeToAdd: employeeToAddReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

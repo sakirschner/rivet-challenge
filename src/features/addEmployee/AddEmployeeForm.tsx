@@ -1,6 +1,8 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { RootState } from '../../app/rootReducer'
 
 import { postEmployee } from './addEmployeeSlice'
 
@@ -67,9 +69,26 @@ export const AddEmployeeForm = ({
 	const [curSt, setSt] = useState(st)
 	const [curZip, setZip] = useState(zip)
 
+	useEffect(() => {
+		if (error === null && submitted) {
+			setFirstName('')
+			setLastName('')
+			setPhone('')
+			setEmail('')
+			setAddress('')
+			setCity('')
+			setSt('')
+			setZip('')
+		}
+	})
+
 	const classes = useStyles()
 
 	const dispatch = useDispatch()
+
+	const error = useSelector((state: RootState) => state.employeeToAdd.error)
+
+	const submitted = useSelector((state: RootState) => state.employeeToAdd.submitted)
 
 	const onFirstNameChanged: ChangeHandler = (e) => {
 		setFirstName(e.target.value)
@@ -104,6 +123,16 @@ export const AddEmployeeForm = ({
 	}
 
 	const onSaveClicked = () => {
+		setEmployee(
+			curFirstName,
+			curLastName,
+			curPhone,
+			curEmail,
+			curAddress,
+			curCity,
+			curSt,
+			curZip
+		)
 		dispatch(
 			postEmployee(
 				curFirstName,
