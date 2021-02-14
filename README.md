@@ -7,6 +7,7 @@ This application was developed by Scott Kirschner for the Rivet front-end develo
 - In the root directory create a file called `.env.local` and be sure to put the period in the begining of the file name. 
     - This file stores the API token in order to make calls from the data base and is included in the gitignore for security purposes.
 - In `.env.local` add the following:
+
     ```
     REACT_APP_API_TOKEN=<Your API Token>
     ```
