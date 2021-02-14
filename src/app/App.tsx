@@ -13,6 +13,7 @@ import { SaveModal } from '../components/SaveModal'
 import { setCurrentDisplayType } from '../features/employeesDisplay/employeesDisplaySplice'
 import { UpdateEmployeePage } from '../features/updateEmployee/UpdateEmployeePage'
 import { resetEmployeeToAddState } from '../features/addEmployee/addEmployeeSlice'
+import { resetEmployeeToPutState } from '../features/updateEmployee/updateEmployeeSlice'
 
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -101,6 +102,7 @@ const App: React.FC<Props> = (props: Props) => {
 
 	const showEmployeeDetails = (employeeId: number) => {
 		dispatch(setCurrentDisplayType({ displayType: 'details', employeeId }))
+		dispatch(resetEmployeeToPutState())
 	}
 
 	const showUpdateEmployee = (employeeId: number) => {
@@ -143,13 +145,11 @@ const App: React.FC<Props> = (props: Props) => {
 			)
 		} else if (displayType === 'updateEmployee') {
 			content = (
-				<div className="updatePageContainer">
-					<UpdateEmployeePage
-						key={key}
-						employeeId={employeeId}
-						showEmployeeDetails={showEmployeeDetails}
-					/>
-				</div>
+				<UpdateEmployeePage
+					key={key}
+					employeeId={employeeId}
+					showEmployeeDetails={showEmployeeDetails}
+				/>
 			)
 		}
 	}
@@ -169,7 +169,7 @@ const App: React.FC<Props> = (props: Props) => {
 			</AppBar>
 			<Container>
 				<Toolbar id="back-to-top-anchor" />
-				<Box className='formContainer'>
+				<Box className="formContainer">
 					<SaveModal />
 					{content}
 				</Box>

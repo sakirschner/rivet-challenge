@@ -3,3 +3,7 @@
     display: flex !important;
     justify-content: center;
 }
+
+.MuiAlert-root {
+    margin-bottom: -30px !important;
+}

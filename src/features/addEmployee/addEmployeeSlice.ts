@@ -1,6 +1,6 @@
-import { FlareSharp } from '@material-ui/icons'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { createEmployee } from '../../api/employeeAPI'
+import { fetchEmployees } from '../../features/employeesList/employeesSlice'
 
 import { AppThunk } from '../../app/store'
 
@@ -158,6 +158,7 @@ export const postEmployee = (
         dispatch(postEmployeeSuccess())
         dispatch(setSubmitted())
         dispatch(resetEmployeeToAddState())
+        dispatch(fetchEmployees())
 	} catch (err) {
 		dispatch(postEmployeeFailure(err.message))
 	}

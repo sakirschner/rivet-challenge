@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { updateEmployee } from '../../api/employeeAPI'
+import { fetchEmployees } from '../../features/employeesList/employeesSlice'
 
 import { AppThunk } from '../../app/store'
 
@@ -19,6 +20,8 @@ interface employeeToPut {
 interface extras {
 	isLoading: boolean
 	error: string | null
+	modalOpen: boolean
+	submitted: boolean
 }
 
 type employeeToPutState = employeeToPut & extras
@@ -35,7 +38,21 @@ let empleeToPutInitialState: employeeToPutState = {
 	zip: '',
 	notes: '',
 	isLoading: false,
-	error: null
+	error: null,
+	modalOpen: false,
+	submitted: false
+}
+
+function openModal(state: employeeToPutState) {
+	state.modalOpen = true
+}
+
+function closeModal(state: employeeToPutState) {
+	state.modalOpen = false
+}
+
+function formSubmitted(state: employeeToPutState) {
+    state.submitted = true
 }
 
 function startLoading(state: employeeToPutState) {
@@ -53,6 +70,12 @@ function loadingFailed(
 function loadingSuccess(state: employeeToPutState) {
 	state.isLoading = false
 	state.error = null
+	state.modalOpen = true
+}
+
+function resetState(state: employeeToPutState) {
+	state.error = null
+	state.submitted = false
 }
 
 const employeeToPut = createSlice({
@@ -85,7 +108,11 @@ const employeeToPut = createSlice({
 			state.notes = notes
 		},
 		putEmployeeSuccess: loadingSuccess,
-		putEmployeeFailure: loadingFailed
+		putEmployeeFailure: loadingFailed,
+		setModalOpen: openModal,
+		setModalClose: closeModal,
+		setSubmitted: formSubmitted,
+		resetEmployeeToPutState: resetState
 	}
 })
 
@@ -93,7 +120,11 @@ export const {
 	putEmployeeStart,
 	setEmployeeToPut,
 	putEmployeeSuccess,
-	putEmployeeFailure
+	putEmployeeFailure,
+	setModalOpen,
+	setModalClose,
+	setSubmitted,
+	resetEmployeeToPutState
 } = employeeToPut.actions
 
 export default employeeToPut.reducer
@@ -126,6 +157,7 @@ export const putEmployee = (
 		dispatch(putEmployeeStart())
 		await updateEmployee(id, payload)
 		dispatch(putEmployeeSuccess())
+		dispatch(fetchEmployees())
 	} catch (err) {
 		dispatch(putEmployeeFailure(err.message))
 	}
