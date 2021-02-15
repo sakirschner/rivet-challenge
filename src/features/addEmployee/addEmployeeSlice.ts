@@ -18,8 +18,8 @@ interface employeeToAdd {
 interface extras {
 	isLoading: boolean
 	error: string | null
-    modalOpen: boolean
-    submitted: boolean
+	modalOpen: boolean
+	submitted: boolean
 }
 
 type employeeToAddState = employeeToAdd & extras
@@ -35,8 +35,8 @@ let empleeToAddInitialState: employeeToAddState = {
 	zip: '',
 	isLoading: false,
 	error: null,
-    modalOpen: false,
-    submitted: false
+	modalOpen: false,
+	submitted: false
 }
 
 function openModal(state: employeeToAddState) {
@@ -48,21 +48,21 @@ function closeModal(state: employeeToAddState) {
 }
 
 function formSubmitted(state: employeeToAddState) {
-    state.submitted = true
+	state.submitted = true
 }
 
 function resetState(state: employeeToAddState) {
-    state.first_name = ''
-    state.last_name = ''
-    state.phone = ''
-    state.email = ''
-    state.address = ''
-    state.city = ''
-    state.st = ''
-    state.zip = ''
+	state.first_name = ''
+	state.last_name = ''
+	state.phone = ''
+	state.email = ''
+	state.address = ''
+	state.city = ''
+	state.st = ''
+	state.zip = ''
 	state.isLoading = false
-    state.error = null
-    state.submitted = false
+	state.error = null
+	state.submitted = false
 }
 
 function startLoading(state: employeeToAddState) {
@@ -112,9 +112,8 @@ const employeeToAdd = createSlice({
 		postEmployeeFailure: loadingFailed,
 		resetEmployeeToAddState: resetState,
 		setModalOpen: openModal,
-        setModalClose: closeModal,
-        setSubmitted: formSubmitted 
-        
+		setModalClose: closeModal,
+		setSubmitted: formSubmitted
 	}
 })
 
@@ -125,8 +124,8 @@ export const {
 	postEmployeeFailure,
 	resetEmployeeToAddState,
 	setModalOpen,
-    setModalClose,
-    setSubmitted
+	setModalClose,
+	setSubmitted
 } = employeeToAdd.actions
 
 export default employeeToAdd.reducer
@@ -155,10 +154,10 @@ export const postEmployee = (
 	try {
 		dispatch(postEmployeeStart())
 		await createEmployee(payload)
-        dispatch(postEmployeeSuccess())
-        dispatch(setSubmitted())
-        dispatch(resetEmployeeToAddState())
-        dispatch(fetchEmployees())
+		dispatch(postEmployeeSuccess())
+		dispatch(setSubmitted())
+		dispatch(resetEmployeeToAddState())
+		dispatch(fetchEmployees())
 	} catch (err) {
 		dispatch(postEmployeeFailure(err.message))
 	}
